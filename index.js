@@ -1,21 +1,17 @@
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://farhan:DD656811@cluster0-v0zrj.gcp.mongodb.net/backup?authSource=admin&retryWrites=true&w=majority";
 const dbName = 'backup';
-const {assignRandomActivity} = require("./workers/index");
-const {getRandomUsers,classifyUsers} = require("./db/db")
+const {updaterandomActivity,classifyUsers} = require("./workers/index");
  
-
-MongoClient.connect(uri, function(err, client) {
-  if(err){
-      throw err;
+MongoClient.connect(uri, function(error, client) {
+  if(error){
+      throw error;
   };
-  console.log("Connected successfully to database server");
+  console.log("Connected Successfully");
  
   const db = client.db(dbName);
   const collection = db.collection('users');
+  //updaterandomActivity(collection);
   classifyUsers(collection);
-  // assignRandomActivity(collection);
-//   console.log(getRandomUsers(collection));
-  
 });
 
